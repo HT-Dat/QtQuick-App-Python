@@ -9,14 +9,24 @@ Button{
     //CUSTOM PROPERTIES
     property url btnIconSource: "../../images/svg_images/menu_icon.svg"
     property color btnColorDefault: "#21242c"
-    property color btnColorMouseOver: "#23272E"
+    property color btnColorMouseOver: "#343a45"
+    property color btnColorClicked: "#00a1f1"
+    width: 70
+    height: 60
     QtObject{
+        id: internal
+        // Mouse over and click change color
+        property var dynamicColor: if(btnToggle.down){
+                                       btnToggle.down ? btnColorClicked : btnColorDefault
+                                   } else {
+                                       btnToggle.hovered ? btnColorMouseOver : btnColorDefault
+                                   }
 
     }
 
     background: Rectangle{
         id: bgBtn
-        color: btnColorDefault
+        color: internal.dynamicColor
         Image {
             id: iconBtn
             source: btnIconSource
@@ -27,16 +37,12 @@ Button{
             fillMode: Image.PreserveAspectFit
         }
         ColorOverlay{
-            anchors.fill: btnToggle
-            source: btnToggle
+            anchors.fill: iconBtn
+            source: iconBtn
             color: "#ffffff"
             antialiasing: false
         }
     }
 }
 
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
+

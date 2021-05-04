@@ -140,11 +140,18 @@ Window {
                     anchors.rightMargin: 0
                     anchors.topMargin: 0
 
-                    Button {
+                    TopbarButton {
                         id: btnMinimize
-                        width: 35
-                        height: 35
-                        text: qsTr("Button")
+
+                    }
+
+                    TopbarButton {
+                        id: btnRestoreMaximize
+                        btnIconSource: "../images/svg_images/maximize_icon.svg"
+                    }
+
+                    TopbarButton {
+                        btnIconSource: "../images/svg_images/close_icon.svg"
                     }
                 }
             }
