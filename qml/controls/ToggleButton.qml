@@ -11,8 +11,6 @@ Button{
     property color btnColorDefault: "#21242c"
     property color btnColorMouseOver: "#343a45"
     property color btnColorClicked: "#00a1f1"
-    width: 70
-    height: 60
     QtObject{
         id: internal
         // Mouse over and click change color
