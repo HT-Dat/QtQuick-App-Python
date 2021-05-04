@@ -151,6 +151,7 @@ Window {
                     }
 
                     TopbarButton {
+                        id: btnClose
                         btnIconSource: "../images/svg_images/close_icon.svg"
                     }
                 }
