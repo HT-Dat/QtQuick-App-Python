@@ -176,6 +176,7 @@ Window {
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
+                    clip: true
                     anchors.bottomMargin: 0
                     anchors.topMargin: 0
                     anchors.leftMargin: 0
@@ -191,10 +192,40 @@ Window {
                         anchors.bottomMargin: 90
                         anchors.topMargin: 0
 
-                        Button {
-                            id: button
-                            text: qsTr("Button")
+                        LeftMenuBtn{
+                            id: btnHome
+                            width: leftMenu.width
+                            text: qsTr("Home")
+                            isActiveMenu: true
                         }
+
+                        LeftMenuBtn {
+                            id: btnHome1
+                            width: leftMenu.width
+                            visible: true
+                            text: qsTr("Open")
+                            isActiveMenu: false
+                            wheelEnabled: false
+                            display: AbstractButton.TextBesideIcon
+                            clip: false
+                            btnIconSource: "../images/svg_images/open_icon.svg"
+                        }
+
+                        LeftMenuBtn {
+                            id: btnHome2
+                            width: leftMenu.width
+                            text: qsTr("Save")
+                            btnIconSource: "../images/svg_images/save_icon.svg"
+                        }
+                    }
+
+                    LeftMenuBtn {
+                        id: btnHome3
+                        width: leftMenu.width
+                        text: qsTr("Setting")
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 25
+                        btnIconSource: "../images/svg_images/settings_icon.svg"
                     }
                 }
 
@@ -243,3 +274,7 @@ Window {
         }
     }
 }
+
+
+
+

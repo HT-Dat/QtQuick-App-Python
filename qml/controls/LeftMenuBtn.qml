@@ -4,6 +4,7 @@ import QtGraphicalEffects 1.15
 
 Button{
     id: btnLeftMenu
+    text: qsTr("Left Menu Text")
     implicitWidth: 250
     implicitHeight: 60
     //CUSTOM PROPERTIES
@@ -13,6 +14,9 @@ Button{
     property color btnColorClicked: "#00a1f1"
     property int iconWidth: 18
     property int iconHeight: 18
+    property color activeMenuColor: "#55aaff"
+    property color activeMenuColorRight: "#2c313c"
+    property bool isActiveMenu: false
     QtObject{
         id: internal
         // Mouse over and click change color
@@ -27,6 +31,28 @@ Button{
     background: Rectangle{
         id: bgBtn
         color: internal.dynamicColor
+        Rectangle{
+            anchors{
+                top: parent.top
+                bottom: parent.bottom
+                left: parent.left
+
+            }
+            color: activeMenuColor
+            width: 3
+            visible: isActiveMenu
+        }
+        Rectangle{
+            anchors{
+                top: parent.top
+                bottom: parent.bottom
+                right: parent.right
+
+            }
+            color: activeMenuColorRight
+            width: 5
+            visible: isActiveMenu
+        }
     }
     contentItem: Item {
         anchors.fill: parent
@@ -54,6 +80,13 @@ Button{
             antialiasing: true
             width: iconWidth
             height: iconHeight
+        }
+        Text {
+            color: "#ffffff"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 75
+            text: btnLeftMenu.text
         }
     }
 }
