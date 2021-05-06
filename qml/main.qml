@@ -9,9 +9,45 @@ Window {
     height: 580
     visible: true
     color: "#00000000"
+    title: qsTr("Course Qt Quick")
+
     // Remove title bar
     flags: Qt.Window | Qt.FramelessWindowHint
-    title: qsTr("Course Qt Quick")
+    // Properties
+    property int windowStatus: 0
+    property int windowMargin: 10
+    //Internal function
+    QtObject{
+        id: internal
+        // windowStatus 0 is currently small and 1 is big
+        function maximizeRestore(){
+            if (windowStatus==0){
+                mainWindow.showMaximized()
+                windowStatus=1
+                windowMargin=0
+                btnRestoreMaximize.btnIconSource="../images/svg_images/restore_icon.svg"
+            } else{
+                mainWindow.showNormal()
+                windowStatus=0
+                windowMargin=10
+                btnRestoreMaximize.btnIconSource="../images/svg_images/maximize_icon.svg"
+            }
+        }
+        function ifMaximizedWindowRestore(){
+            if (windowStatus==1){
+                mainWindow.showNormal()
+                windowStatus=0
+                windowMargin=10
+                btnRestoreMaximize.btnIconSource="../images/svg_images/maximize_icon.svg"
+            }
+        }
+        function restoreMargins(){
+            windowStatus=0
+            windowMargin=10
+            btnRestoreMaximize.btnIconSource="../images/svg_images/maximize_icon.svg"
+
+        }
+    }
 
     Rectangle {
         id: bg
@@ -22,11 +58,11 @@ Window {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.rightMargin: 10
-        anchors.leftMargin: 10
-        anchors.bottomMargin: 10
-        anchors.topMargin: 10
-
+        anchors.rightMargin: windowMargin
+        anchors.leftMargin: windowMargin
+        anchors.bottomMargin: windowMargin
+        anchors.topMargin: windowMargin
+        z: 1
         Rectangle {
             id: appContainer
             color: "#00000000"
@@ -108,6 +144,7 @@ Window {
                     DragHandler{
                         onActiveChanged: if (active){
                                              mainWindow.startSystemMove()
+                                             internal.ifMaximizedWindowRestore()
                                          }
                     }
 
@@ -151,17 +188,22 @@ Window {
 
                     TopbarButton {
                         id: btnMinimize
-
+                        onClicked: {
+                            mainWindow.showMinimized()
+                            internal.restoreMargins()
+                        }
                     }
 
                     TopbarButton {
                         id: btnRestoreMaximize
                         btnIconSource: "../images/svg_images/maximize_icon.svg"
+                        onClicked: internal.maximizeRestore()
                     }
 
                     TopbarButton {
                         id: btnClose
                         btnIconSource: "../images/svg_images/close_icon.svg"
+                        onClicked: mainWindow.close()
                     }
                 }
             }
@@ -194,9 +236,9 @@ Window {
                         id: animationMenu
                         target: leftMenu
                         property: "width"
-                        to: leftMenu.width == 70 ? 200 : 70
+                        to: leftMenu.width == 70 ? 250 : 70
                         duration: 500
-                        easing.type: Easing.OutBounce
+                        easing.type: Easing.OutQuint
                     }
 
                     Column {
@@ -309,6 +351,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.5}
+    D{i:0;formeditorZoom:0.75}
 }
 ##^##*/
