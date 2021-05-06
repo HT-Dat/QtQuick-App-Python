@@ -17,6 +17,7 @@ Button{
     property color activeMenuColor: "#55aaff"
     property color activeMenuColorRight: "#2c313c"
     property bool isActiveMenu: false
+    property color iconColor: "#ffffff"
     QtObject{
         id: internal
         // Mouse over and click change color
@@ -59,19 +60,20 @@ Button{
         id: content
         Image {
             id: iconBtn
+            y: 21
             source: btnIconSource
             anchors.leftMargin: 26
-            anchors.left: parent.left
             sourceSize.width: iconWidth
             sourceSize.height: iconWidth
             height: iconHeight
             anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
             width: iconHeight
             fillMode: Image.PreserveAspectFit
             antialiasing: true
         }
         ColorOverlay{
-            anchors.fill: iconBtn
+            y: 34
             source: iconBtn
             anchors.leftMargin: 26
             color: "#ffffff"
@@ -91,11 +93,8 @@ Button{
     }
 }
 
-
-
-
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.1;height:60;width:250}
+    D{i:0;formeditorZoom:2;height:60;width:250}D{i:6}D{i:7}
 }
 ##^##*/
