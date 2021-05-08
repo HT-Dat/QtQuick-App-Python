@@ -272,10 +272,17 @@ Window {
                             width: leftMenu.width
                             text: qsTr("Home")
                             isActiveMenu: true
+                            onClicked: {
+                                if (btnHome.isActiveMenu == false) {
+                                    btnHome.isActiveMenu = true
+                                    btnSetting.isActiveMenu = false
+                                    stackView.push(Qt.resolvedUrl("pages/homePage.qml"))
+                                }
+                            }
                         }
 
                         LeftMenuBtn {
-                            id: btnHome1
+                            id: btnOpen
                             width: leftMenu.width
                             visible: true
                             text: qsTr("Open")
@@ -287,7 +294,7 @@ Window {
                         }
 
                         LeftMenuBtn {
-                            id: btnHome2
+                            id: btnSave
                             width: leftMenu.width
                             text: qsTr("Save")
                             btnIconSource: "../images/svg_images/save_icon.svg"
@@ -295,12 +302,19 @@ Window {
                     }
 
                     LeftMenuBtn {
-                        id: btnHome3
+                        id: btnSetting
                         width: leftMenu.width
                         text: qsTr("Setting")
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: 25
                         btnIconSource: "../images/svg_images/settings_icon.svg"
+                        onClicked: {
+                            if (btnSetting.isActiveMenu == false) {
+                                btnHome.isActiveMenu = false
+                                btnSetting.isActiveMenu=true
+                                stackView.push(Qt.resolvedUrl("pages/settingsPage.qml"))
+                            }
+                        }
                     }
                 }
 
@@ -311,10 +325,17 @@ Window {
                     anchors.right: parent.right
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
+                    clip: true
                     anchors.rightMargin: 0
                     anchors.leftMargin: 0
                     anchors.bottomMargin: 25
                     anchors.topMargin: 0
+
+                    StackView {
+                        id: stackView
+                        anchors.fill: parent
+                        initialItem: Qt.resolvedUrl("pages/homePage.qml")
+                    }
                 }
 
                 Rectangle {
@@ -466,6 +487,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.1}D{i:30}D{i:36}D{i:38}
+    D{i:0;formeditorZoom:0.9}
 }
 ##^##*/
