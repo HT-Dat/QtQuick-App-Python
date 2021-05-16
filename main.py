@@ -4,11 +4,22 @@ import os
 
 from PySide2.QtGui import QGuiApplication
 from PySide2.QtQml import QQmlApplicationEngine
-
-
+from PySide2.QtCore import QObject, Slot, Signal
+class MainWindow(QObject):
+    def __init__(self):
+        QObject.__init__(self)
+    #Set name
+    setName=Signal(str)
+    #function set name to label
+    @Slot(str)
+    def welcomeText(self, name):
+        self.setName.emit("Welcome "+name)
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
+    # Get context
+    main = MainWindow()
+    engine.rootContext().setContextProperty("backend", main)
     engine.load(os.path.join(os.path.dirname(__file__), "qml/main.qml"))
 
     if not engine.rootObjects():
